@@ -12,18 +12,18 @@ public:
     void createTables() {
         pqxx::work txn(conn_);
         txn.exec(
-            CREATE TABLE IF NOT EXISTS clients (
-               id SERIAL PRIMARY KEY,
-               first_name VARCHAR(100) NOT NULL,
-               last_name VARCHAR(100) NOT NULL,
-               email VARCHAR(255) UNIQUE NOT NULL
-            );
-            CREATE TABLE IF NOT EXISTS phones (
-               id SERIAL PRIMARY KEY,
-               client_id INTEGER REFERENCES clients(id) ON DELETE CASCADE,
-               phone VARCHAR(20) NOT NULL
-            );
-        );
+            "CREATE TABLE IF NOT EXISTS clients ("
+        "    id SERIAL PRIMARY KEY,"
+        "    first_name VARCHAR(100) NOT NULL,"
+        "    last_name VARCHAR(100) NOT NULL,"
+        "    email VARCHAR(255) UNIQUE NOT NULL"
+        ");"
+        "CREATE TABLE IF NOT EXISTS phones ("
+        "    id SERIAL PRIMARY KEY,"
+        "    client_id INTEGER REFERENCES clients(id) ON DELETE CASCADE,"
+        "    phone VARCHAR(20) NOT NULL"
+        ");"
+    );
         txn.commit();
         std::cout << "Tables created (if not existed).\n";
     }
